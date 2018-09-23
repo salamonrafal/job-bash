@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "removeComments": false,
+    "target": "es5",
+    "lib": ["es5", "es6", "dom"]
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": false,
+    "babelOptions": {
+      "babelrc": false, /* Important line */
+      "presets": [
+        ["@babel/preset-env", { "targets": "last 2 versions, ie 11", "modules": "commonjs" }]
+      ]
+    },
+    "babelCore": "@babel/core"
+  }
+}
