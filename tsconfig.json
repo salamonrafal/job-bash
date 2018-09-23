@@ -3,12 +3,13 @@
     "noImplicitAny": false,
     "removeComments": false,
     "target": "es5",
-    "lib": ["es5", "es6", "dom"]
+    "lib": ["es5", "es6", "dom"],
+    "jsx": "react"
   },
   "awesomeTypescriptLoaderOptions": {
     "useBabel": false,
     "babelOptions": {
-      "babelrc": false, /* Important line */
+      "babelrc": false,
       "presets": [
         ["@babel/preset-env", { "targets": "last 2 versions, ie 11", "modules": "commonjs" }]
       ]

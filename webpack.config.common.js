@@ -1,4 +1,4 @@
-let path = require('path');
+const path = require('path');
 
 module.exports = {
     mode: 'production',
@@ -21,6 +21,10 @@ module.exports = {
             }
         ]
     },
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    },
     resolve: {
         extensions: ['.ts', '.tsx'],
         alias: {
@@ -30,6 +34,7 @@ module.exports = {
             services: path.resolve(__dirname, 'src/services/'),
             helpers: path.resolve(__dirname, 'src/helpers/'),
             interfaces: path.resolve(__dirname, 'src/interfaces/'),
+            containers: path.resolve(__dirname, 'src/containers/'),
             config: path.resolve(__dirname, 'src/config/')
         }
     }
