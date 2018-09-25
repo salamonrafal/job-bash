@@ -23,7 +23,8 @@ module.exports = {
     },
     externals: {
         "react": "React",
-        "react-dom": "ReactDOM"
+        "react-dom": "ReactDOM",
+        "styled-components": "styled",
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
@@ -35,6 +36,7 @@ module.exports = {
             helpers: path.resolve(__dirname, 'src/helpers/'),
             interfaces: path.resolve(__dirname, 'src/interfaces/'),
             containers: path.resolve(__dirname, 'src/containers/'),
+            theme: path.resolve(__dirname, 'src/theme/'),
             config: path.resolve(__dirname, 'src/config/')
         }
     }

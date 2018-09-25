@@ -24,7 +24,8 @@
       "babelrc": false,
       "presets": [
         ["@babel/preset-env", { "targets": "last 2 versions, ie 11", "modules": "commonjs" }]
-      ]
+      ],
+      "plugins": ["styled-components"]
     },
     "babelCore": "@babel/core"
   }
