@@ -4,8 +4,20 @@
     "removeComments": false,
     "target": "es5",
     "lib": ["es5", "es6", "dom"],
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
   },
+  "files": [
+    "src/index.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts*"
+  ],
   "awesomeTypescriptLoaderOptions": {
     "useBabel": false,
     "babelOptions": {

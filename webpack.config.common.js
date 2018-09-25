@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     mode: 'production',
     entry: {
-        main: path.resolve(__dirname, 'src/index.ts')
+        main: path.resolve(__dirname, 'src/index.tsx')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -26,7 +26,7 @@ module.exports = {
         "react-dom": "ReactDOM"
     },
     resolve: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         alias: {
             components: path.resolve(__dirname, 'src/components/'),
             styles: path.resolve(__dirname, 'src/styles/'),

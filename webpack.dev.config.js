@@ -11,6 +11,10 @@ module.exports = merge(commonConfig, {
       filename: '[name].bundle.js'
    },
    devServer: {
-      contentBase: './example'
+      contentBase: path.join(__dirname, 'example'),
+      compress: true,
+      port: 8080,
+      host: '127.0.0.1',
+      open: true
    }
 });
