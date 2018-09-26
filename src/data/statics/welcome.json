@@ -1,0 +1,37 @@
+[
+    {
+        "content": "Welcome to Jobbash version 1.0.4 LTS",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "Powered by StepStone",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "* If you need help with all avalible commands just write: #help#",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "* Random job?: #luckyjob#",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "* Random apply?: #luckyapply#",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "*** Last visited: {lastvisited} from {clientip}",
+        "delay": 100,
+        "userInfo": false
+    }
+]

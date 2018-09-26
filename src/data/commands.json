@@ -1,0 +1,83 @@
+[
+    {
+        "name": "help",
+        "hint": "Show information about all available commands",
+        "example": "help [--command <command_name>]",
+        "args": [
+            {
+                "short": "c",
+                "long": "command",
+                "hint": "Show information about specific command",
+                "default": "",
+                "required": false
+            }
+        ],
+        "aliases": [
+            "man"
+        ],
+        "service": "CommandServiceHelp"
+    },
+    {
+        "name": "jobs",
+        "hint": "Search jobs in database and print them",
+        "example": "jobs [--category <category_name>] [--keyword <keyword>] [--city <city_name>] [--max <max_number>]",
+        "args": [
+            {
+                "short": "c",
+                "long": "category",
+                "hint": "Category of jobs eg. IT",
+                "default": "",
+                "required": false
+            },
+            {
+                "short": "k",
+                "long": "keyword",
+                "hint": "Search by keyword",
+                "default": "",
+                "required": false
+            },
+            {
+                "short": "l",
+                "long": "city",
+                "hint": "Search by city",
+                "default": "",
+                "required": false
+            },
+            {
+                "short": "m",
+                "long": "max",
+                "hint": "Limit of results default 10. You able select from 1-25",
+                "default": 10,
+                "required": false
+            }
+        ],
+        "aliases": [
+            "job-search",
+            "listings",
+            "listing-search",
+            "job-search",
+            "offers",
+            "offer-search"
+        ],
+        "service": "CommandServiceJobsSearch"
+    },
+    {
+        "name": "job",
+        "hint": "Display information about job",
+        "example": "job --id <job_id>",
+        "args": [
+            {
+                "short": "i",
+                "long": "id",
+                "hint": "Id for a job",
+                "default": "",
+                "required": true
+            }
+        ],
+        "aliases": [
+            "listing",
+            "offer"
+        ],
+        "service": "CommandServiceDisplayJob"
+    }
+]

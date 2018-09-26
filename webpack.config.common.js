@@ -51,6 +51,7 @@ module.exports = {
             containers: path.resolve(__dirname, 'src/containers/'),
             theme: path.resolve(__dirname, 'src/theme/'),
             resources: path.resolve(__dirname, 'src/resources/'),
+            data: path.resolve(__dirname, 'src/data/'),
             config: path.resolve(__dirname, 'src/config/')
         }
     }

@@ -59,6 +59,14 @@ injectGlobal `
         margin: 0px;
         padding: 0px;
     }
+
+    .yellow {
+        color: yellow;
+    }
+
+    .grey {
+        color: grey;
+    }
 `;
 
 export {
