@@ -13,8 +13,8 @@ export default class ActiveLine extends React.Component <IProps>
     {
         const {user, domain, bashPrefix, line} = this.props;
         let content = user + "@" + domain + bashPrefix + " ";
-        let commandInterpreter = new CommandInterpreter();
-        let lineDisplay = commandInterpreter.outputFormatCommand(line);
+        let commandInterpreter = new CommandInterpreter(line);
+        let lineDisplay = commandInterpreter.outputFormatCommand();
 
         content += lineDisplay;
 

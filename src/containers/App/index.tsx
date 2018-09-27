@@ -59,8 +59,6 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
     public handleKeyPressTerminal (event): void 
     {
         const { line } = this.state;
-        console.log(event.charCod);
-        console.log(event.key);
 
         switch (event.key)
         {
