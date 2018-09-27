@@ -15,22 +15,22 @@
         "userInfo": false
     },
     {
-        "content": "* If you need help with all avalible commands just write: #help#",
+        "content": "* If you need help with all avalible commands just write: #yhelpy#",
         "delay": 100,
         "userInfo": false
     },
     {
-        "content": "* Random job?: #luckyjob#",
+        "content": "* Random job?: #yluckyjoby#",
         "delay": 100,
         "userInfo": false
     },
     {
-        "content": "* Random apply?: #luckyapply#",
+        "content": "* Random apply?: #yluckyapplyy#",
         "delay": 100,
         "userInfo": false
     },
     {
-        "content": "*** Last visited: {lastvisited} from {clientip}",
+        "content": "*** Last visited: #g{lastvisited}g# from #g{clientip}g#",
         "delay": 100,
         "userInfo": false
     }
