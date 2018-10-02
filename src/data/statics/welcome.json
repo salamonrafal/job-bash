@@ -30,6 +30,26 @@
         "userInfo": false
     },
     {
+        "content": "",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "Git repo: https://github.com/salamonrafal/job-bash",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
+        "content": "",
+        "delay": 100,
+        "userInfo": false
+    },
+    {
         "content": "*** Last visited: #g{lastvisited}g# from #g{clientip}g#",
         "delay": 100,
         "userInfo": false

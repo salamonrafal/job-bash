@@ -3,32 +3,7 @@ export default class TransformText
     private tableFormatting;
 
     constructor () {
-        this.tableFormatting = [
-            {
-                signChrStart: "#y",
-                signChrEnd: "y#",
-                tagStart: "<strong class=\"yellow\">",
-                tagEnd: "</strong>",
-            },
-            {
-                signChrStart: "#g",
-                signChrEnd: "g#",
-                tagStart: "<strong class=\"grey\">",
-                tagEnd: "</strong>",
-            },
-            {
-                signChrStart: "_",
-                signChrEnd: "_",
-                tagStart: "<i>",
-                tagEnd: "</i>",
-            },
-            {
-                signChrStart: "\\*",
-                signChrEnd: "\\*",
-                tagStart: "<i>",
-                tagEnd: "</i>",
-            }
-        ];
+        this.tableFormatting = require('data/formatting.json');
     }
 
     public transformToFormattedText (content: string): string

@@ -1,0 +1,30 @@
+[
+    {
+        "signChrStart": "#y",
+        "signChrEnd": "y#",
+        "tagStart": "<strong class=\"yellow\">",
+        "tagEnd": "</strong>",
+        "name": "bold-yellow"
+    },
+    {
+        "signChrStart": "#g",
+        "signChrEnd": "g#",
+        "tagStart": "<strong class=\"grey\">",
+        "tagEnd": "</strong>",
+        "name": "bold-grey"
+    },
+    {
+        "signChrStart": "_",
+        "signChrEnd": "_",
+        "tagStart": "<u>",
+        "tagEnd": "</u>",
+        "name": "underline"
+    },
+    {
+        "signChrStart": "\\*",
+        "signChrEnd": "\\*",
+        "tagStart": "<i>",
+        "tagEnd": "</i>",
+        "name": "italic"
+    }
+]

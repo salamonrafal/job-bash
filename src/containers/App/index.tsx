@@ -8,10 +8,18 @@ import { ConsoleContainerStyled } from './styles';
 import LineItem from 'components/LineItem';
 import ActiveLine from 'components/ActiveLine';
 
+
+// Services
+import Printer from 'services/Printer';
+
+// Data
 const terminalStaticWelcome = require('data/statics/welcome.json');
 
 export default class App extends React.Component<IAppContainerProps, IAppContainerState>
 {
+
+    private printService;
+
     constructor (props : IAppContainerProps) 
     {
         super(props);
@@ -24,37 +32,36 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
             bashPrefix: ":~#"
         }
 
-        this.updateLine = this.updateLine.bind(this);
+        this.eventUpdateLine = this.eventUpdateLine.bind(this);
+        this.eventAddLineToDisplay = this.eventAddLineToDisplay.bind(this);
         this.handleKeyPressTerminal = this.handleKeyPressTerminal.bind(this);
     }
 
     public componentWillMount () {
+        const {user, domain, bashPrefix}= this.state;
+
         document.addEventListener("keydown", this.handleKeyPressTerminal, false);
+
+        this.printService = new Printer(user, domain, bashPrefix, this.eventAddLineToDisplay);
+        this.printService.printWelcomePage();
     }
 
     public render() 
     {
         const {line, lines, user, domain, bashPrefix}= this.state;
+        let linesDisplay = this.displayByLines(lines, {lastvisited: "Yesterday Fri Sep 21 19:32:10 2018", clientip: "93.174.28.62"});
 
         return (
             <ThemeProvider theme={theme}>
                 <ConsoleContainerStyled>
-                    <LineItem content="Welcome to Jobbash version 1.0.4 LTS"></LineItem>
-                    <LineItem content="Powered by StepStone"></LineItem>
-                    <LineItem emptyLine={true}></LineItem>
-                    <LineItem emptyLine={true}></LineItem>
-                    <LineItem content="     * _If you need help with all avalible commands just write_: #yhelpy#"></LineItem>
-                    <LineItem content="     * _Random job_?: #yluckyjoby#"></LineItem>
-                    <LineItem content="     * _Random apply_?: #yluckyapplyy#"></LineItem>
-                    <LineItem emptyLine={true}></LineItem>
-                    <LineItem emptyLine={true}></LineItem>
-                    <LineItem content="*** Last visited: #g{lastvisited}g# from #g{clientip}g#" args={{lastvisited: "Yesterday Fri Sep 21 19:32:10 2018", clientip: "93.174.28.62"}}></LineItem>
-
+                    {linesDisplay}
                     <ActiveLine user={user} domain={domain} bashPrefix={bashPrefix} line={line}></ActiveLine>
                 </ConsoleContainerStyled>
             </ThemeProvider>
         );
     }
+
+    // Handle actions
 
     public handleKeyPressTerminal (event): void 
     {
@@ -63,6 +70,11 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
         switch (event.key)
         {
             case 'Enter':
+                event.preventDefault();
+                this.printService.printSelectedLine(this.state.line);
+                this.setState({
+                    line: ""
+                });
                 // Implement
                 break;
             case 'Shift':
@@ -101,19 +113,59 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
                 break;
 
             case 'Backspace':
-                this.updateLine(line.substring(0, line.length - 1));
+                this.eventUpdateLine(line.substring(0, line.length - 1));
                 break;
 
             default:
-                this.updateLine(line+event.key);
+                this.eventUpdateLine(line+event.key);
             break;
         }
     }
 
-    public updateLine (content: string): void
+    // Events
+
+    public eventUpdateLine (content: string): void
     {
         this.setState({
             line: content
         })
     }
+
+    public eventAddLineToDisplay(line) 
+    {
+        const { lines } = this.state;
+        let newLines = lines;
+        newLines.push(line);
+
+        this.setState({
+            lines: newLines
+        });
+    }
+
+    // Protected 
+
+    protected displayByLines(lines: string[], args: any)
+    {
+        let displayLines = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            let content = lines[i];
+
+            if (content !== "")
+            {
+                displayLines.push (
+                    <LineItem content={content} args={args}></LineItem>
+                );
+            } else {
+                displayLines.push (
+                    <LineItem emptyLine={true}></LineItem>
+                );
+            }
+            
+        }
+
+        return displayLines;
+    }
+
+    // Private
 }
