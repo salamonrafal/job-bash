@@ -11,6 +11,7 @@ import ActiveLine from 'components/ActiveLine';
 
 // Services
 import Printer from 'services/Printer';
+import CommandFactory from 'services/CommandFactory';
 
 // Data
 const terminalStaticWelcome = require('data/statics/welcome.json');
@@ -18,7 +19,8 @@ const terminalStaticWelcome = require('data/statics/welcome.json');
 export default class App extends React.Component<IAppContainerProps, IAppContainerState>
 {
 
-    private printService;
+    private printService: Printer;
+    private commandFactory: CommandFactory;
 
     constructor (props : IAppContainerProps) 
     {
@@ -29,7 +31,8 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
             lines: [],
             user: "anonymous",
             domain: "stepstone.de",
-            bashPrefix: ":~#"
+            bashPrefix: ":~#",
+            inputMode: false
         }
 
         this.eventUpdateLine = this.eventUpdateLine.bind(this);
@@ -44,6 +47,7 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
 
         this.printService = new Printer(user, domain, bashPrefix, this.eventAddLineToDisplay);
         this.printService.printWelcomePage();
+        this.commandFactory = new CommandFactory(this.printService);
     }
 
     public render() 
@@ -72,6 +76,7 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
             case 'Enter':
                 event.preventDefault();
                 this.printService.printSelectedLine(this.state.line);
+                this.commandFactory.exec(this.state.line);
                 this.setState({
                     line: ""
                 });

@@ -15,12 +15,12 @@
         "aliases": [
             "man"
         ],
-        "service": "CommandServiceHelp"
+        "serviceName": "HelpCmd"
     },
     {
         "name": "jobs",
         "hint": "Search jobs in database and print them",
-        "example": "jobs [--category <category_name>] [--keyword <keyword>] [--city <city_name>] [--max <max_number>]",
+        "example": "jobs [--category <category_id>] [--keyword <keyword>] [--city <city_id>] [--max <max_number>]",
         "args": [
             {
                 "short": "c",
@@ -59,7 +59,7 @@
             "offers",
             "offer-search"
         ],
-        "service": "CommandServiceJobsSearch"
+        "serviceName": "SearchCmd"
     },
     {
         "name": "job",
@@ -78,6 +78,6 @@
             "listing",
             "offer"
         ],
-        "service": "CommandServiceDisplayJob"
+        "serviceName": "DisplayListingCmd"
     }
 ]

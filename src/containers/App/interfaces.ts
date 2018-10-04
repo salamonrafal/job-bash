@@ -8,4 +8,5 @@ export interface IAppContainerState {
     user: string;
     domain: string;
     bashPrefix: string;
+    inputMode: boolean;
 }

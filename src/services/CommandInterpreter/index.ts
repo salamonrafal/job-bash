@@ -1,3 +1,5 @@
+import { IParsedCommand } from "./interfaces";
+
 export default class CommandInterpreter
 {
     protected commandsData;
@@ -14,6 +16,13 @@ export default class CommandInterpreter
     {
         this.textLine = textLine;
         this.parsedCommand = this.parseCommand(this.textLine);
+    }
+
+    public getParsedCommand (textLine: string): IParsedCommand
+    {
+        this.textLine = textLine;
+        this.parsedCommand = this.parseCommand(this.textLine);
+        return this.parsedCommand;
     }
 
     public outputFormatCommand(): string
@@ -50,7 +59,7 @@ export default class CommandInterpreter
         return content;
     }
 
-    private parseCommand (content: string) 
+    private parseCommand (content: string): IParsedCommand
     {
         let returnData = {
             commandName: "",
