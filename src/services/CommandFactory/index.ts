@@ -19,21 +19,37 @@ export default class CommandFactory
        this.commands = new Commands();
     }
 
-    public exec (command: string)
+    public exec (command: string, inputMode: boolean, inputServiceName: string)
     {
-        const parsedCommandData = this.commandInterpreter.getParsedCommand(command);
-
-        if (this.commands.isCommandExists(parsedCommandData.commandName))
+        if(!inputMode)
         {
-            const commandData = this.commands.findCommand(parsedCommandData.commandName);
-            let obj = this.createInstance(commandData.serviceName);
-            obj.run(parsedCommandData.params, commandData);
-            console.log(commandData);
-        } else {
-            console.log('command not exists');
-        }
 
-        console.log(parsedCommandData);
+            const parsedCommandData = this.commandInterpreter.getParsedCommand(command);
+
+            if (parsedCommandData.commandName.trim() === '')
+            {
+                return;
+            }
+
+            if (this.commands.isCommandExists(parsedCommandData.commandName))
+            {
+                const commandData = this.commands.findCommand(parsedCommandData.commandName);
+                let obj = this.createInstance(commandData.serviceName, this.printService);
+                obj.run(parsedCommandData.params, commandData);
+            } else {
+                this.printService.printLineNoFormmat('#rSorry!!r# %rCommandr% _r' + parsedCommandData.commandName + 'r_ %rhas not been recognizedr%');
+            }
+
+        } else {
+            if (this.commands.isCommandExists(inputServiceName))
+            {
+                const commandData = this.commands.findCommand(inputServiceName);
+                let obj = this.createInstance(commandData.serviceName, this.printService);
+                obj.input(command, commandData);
+            } else {
+                this.printService.printLineNoFormmat('#rSorry!!r# %rCommandr% _r' + inputServiceName + 'r_ %rhas not been recognizedr%');
+            }
+        }
         
     }
 

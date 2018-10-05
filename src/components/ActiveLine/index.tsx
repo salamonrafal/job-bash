@@ -6,17 +6,20 @@ import CommandInterpreter from 'services/CommandInterpreter';
 import LineItem from 'components/LineItem';
 
 
-
 export default class ActiveLine extends React.Component <IProps>
 {
     public render() 
     {
-        const {user, domain, bashPrefix, line} = this.props;
-        let content = user + "@" + domain + bashPrefix + " ";
+        const {user, domain, bashPrefix, line, mode} = this.props;
         let commandInterpreter = new CommandInterpreter(line);
-        let lineDisplay = commandInterpreter.outputFormatCommand();
+        let content: string;
 
-        content += lineDisplay;
+        if (!mode) {
+            let lineDisplay = commandInterpreter.outputFormatCommand();
+            content = `${user}@${domain}${bashPrefix} ${lineDisplay}`;
+        } else {
+            content = `${line}`;
+        }
 
         return (
             <ActiveLineStyled>

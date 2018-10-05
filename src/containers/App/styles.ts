@@ -67,6 +67,10 @@ injectGlobal `
     .grey {
         color: grey;
     }
+
+    .red {
+        color: red;
+    }
 `;
 
 export {

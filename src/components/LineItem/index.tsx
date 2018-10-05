@@ -14,8 +14,9 @@ export default class LineItem extends React.Component <IProps>
         {
             const transformText = new TransformText();
             let contentChecked = transformText.replaceStructValueContent(content, args);
-            contentChecked = transformText.transformToFormattedText(contentChecked);
             let cursorText = (<span></span>);
+
+            contentChecked = transformText.transformToFormattedText(contentChecked);
 
             if (cursor !== undefined && cursor) 
             {

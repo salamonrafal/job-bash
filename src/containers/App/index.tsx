@@ -32,11 +32,16 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
             user: "anonymous",
             domain: "stepstone.de",
             bashPrefix: ":~#",
-            inputMode: false
+            inputMode: false,
+            inputValue: "",
+            inputCmdServiceName: ""
         }
 
         this.eventUpdateLine = this.eventUpdateLine.bind(this);
         this.eventAddLineToDisplay = this.eventAddLineToDisplay.bind(this);
+        this.eventInputModeChange = this.eventInputModeChange.bind(this);
+        this.eventSetInputService = this.eventSetInputService.bind(this);
+        this.eventSetInputValue = this.eventSetInputValue.bind(this);
         this.handleKeyPressTerminal = this.handleKeyPressTerminal.bind(this);
     }
 
@@ -45,21 +50,30 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
 
         document.addEventListener("keydown", this.handleKeyPressTerminal, false);
 
-        this.printService = new Printer(user, domain, bashPrefix, this.eventAddLineToDisplay);
+        this.printService = new Printer(
+            user, 
+            domain, 
+            bashPrefix, 
+            this.eventAddLineToDisplay, 
+            this.eventInputModeChange,
+            this.eventSetInputService,
+            this.eventSetInputValue
+        );
+
         this.printService.printWelcomePage();
         this.commandFactory = new CommandFactory(this.printService);
     }
 
     public render() 
     {
-        const {line, lines, user, domain, bashPrefix}= this.state;
+        const {line, lines, user, domain, bashPrefix, inputMode}= this.state;
         let linesDisplay = this.displayByLines(lines, {lastvisited: "Yesterday Fri Sep 21 19:32:10 2018", clientip: "93.174.28.62"});
 
         return (
             <ThemeProvider theme={theme}>
                 <ConsoleContainerStyled>
                     {linesDisplay}
-                    <ActiveLine user={user} domain={domain} bashPrefix={bashPrefix} line={line}></ActiveLine>
+                    <ActiveLine user={user} domain={domain} bashPrefix={bashPrefix} line={line} mode={inputMode}></ActiveLine>
                 </ConsoleContainerStyled>
             </ThemeProvider>
         );
@@ -75,12 +89,14 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
         {
             case 'Enter':
                 event.preventDefault();
-                this.printService.printSelectedLine(this.state.line);
-                this.commandFactory.exec(this.state.line);
+                if (!this.state.inputMode)
+                {
+                    this.printService.printSelectedLine(this.state.line);
+                }
+                this.commandFactory.exec(this.state.line, this.state.inputMode, this.state.inputCmdServiceName);
                 this.setState({
                     line: ""
                 });
-                // Implement
                 break;
             case 'Shift':
             case 'Control':
@@ -108,11 +124,16 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
             case 'F9':
             case 'F10':
             case 'F11':
+            case 'F12':
             case 'ScrollLock': 
             case 'CapsLock':
             case 'ContextMenu':
             case 'Alt':
             case 'AltGraph':
+            case 'Dead':
+            case 'Pause':
+            case '\\':
+            case '?':
                 event.preventDefault();
                 // Implement
                 break;
@@ -136,7 +157,7 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
         })
     }
 
-    public eventAddLineToDisplay(line) 
+    public eventAddLineToDisplay(line: string) 
     {
         const { lines } = this.state;
         let newLines = lines;
@@ -144,6 +165,27 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
 
         this.setState({
             lines: newLines
+        });
+    }
+
+    public eventInputModeChange(isEnabled: boolean): void
+    {
+        this.setState({
+            inputMode: isEnabled
+        });
+    }
+
+    public eventSetInputService(serviceName: string): void
+    {
+        this.setState({
+            inputCmdServiceName: serviceName
+        });
+    }
+
+    public eventSetInputValue(value: string): void
+    {
+        this.setState({
+            inputValue: value
         });
     }
 

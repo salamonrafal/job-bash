@@ -15,17 +15,17 @@
         "userInfo": false
     },
     {
-        "content": "* If you need help with all avalible commands just write: #yhelpy#",
+        "content": "    * If you need help with all avalible commands just write: #yhelpy#",
         "delay": 100,
         "userInfo": false
     },
     {
-        "content": "* Random job?: #yluckyjoby#",
+        "content": "    * Random job?: #yluckyjoby#",
         "delay": 100,
         "userInfo": false
     },
     {
-        "content": "* Random apply?: #yluckyapplyy#",
+        "content": "    * Random apply?: #yluckyapplyy#",
         "delay": 100,
         "userInfo": false
     },

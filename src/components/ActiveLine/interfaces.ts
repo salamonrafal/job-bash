@@ -3,4 +3,5 @@ export interface IProps {
     domain: string;
     bashPrefix: string;
     line: string;
+    mode: boolean;
 };

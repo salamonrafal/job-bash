@@ -31,7 +31,7 @@ export default class CommandInterpreter
 
         if (this.parsedCommand.commandName.length > 0) 
         {
-            contentDisplay = contentDisplay.replace(new RegExp('^' + this.parsedCommand.commandName), "#y" + this.parsedCommand.commandName + "y#");
+            contentDisplay = contentDisplay.replace(new RegExp('^' + this.escapeString(this.parsedCommand.commandName)), "#y" + this.parsedCommand.commandName + "y#");
         }
 
         for (let i = 0; i < this.parsedCommand.params.length; i++)
@@ -42,7 +42,7 @@ export default class CommandInterpreter
             if (this.parsedCommand.params[i].value.length > 0)
             {
                 search += " (" + this.parsedCommand.params[i].value + ")";
-                replace += " _" + this.parsedCommand.params[i].value + "_";
+                replace += " __" + this.parsedCommand.params[i].value + "__";
             }
 
             contentDisplay = contentDisplay.replace(new RegExp(search), replace);
@@ -54,8 +54,13 @@ export default class CommandInterpreter
 
     private escapeString (content: string): string
     {
-        content = content.replace(new RegExp("\-",'gm'), '\-');
-        content = content.replace(new RegExp('\"','gm'), '\-');
+        const signs: string[] = ['-', '"', "'", "[", "]", "(", ")", "*", "+", "^", "$", "/", "?", '|'];
+
+        for (let i = 0; i < signs.length; i++)
+        {
+            content = content.replace(new RegExp('\\' + signs[i], 'gm'), '\\' + signs[i]);
+        }
+
         return content;
     }
 

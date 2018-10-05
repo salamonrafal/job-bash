@@ -1,5 +1,12 @@
 [
     {
+        "signChrStart": "##",
+        "signChrEnd": "##",
+        "tagStart": "<strong>",
+        "tagEnd": "</strong>",
+        "name": "bold-yellow"
+    },
+    {
         "signChrStart": "#y",
         "signChrEnd": "y#",
         "tagStart": "<strong class=\"yellow\">",
@@ -14,15 +21,50 @@
         "name": "bold-grey"
     },
     {
-        "signChrStart": "_",
-        "signChrEnd": "_",
+        "signChrStart": "#r",
+        "signChrEnd": "r#",
+        "tagStart": "<strong class=\"red\">",
+        "tagEnd": "</strong>",
+        "name": "bold-red"
+    },
+    {
+        "signChrStart": "%r",
+        "signChrEnd": "r%",
+        "tagStart": "<span class=\"red\">",
+        "tagEnd": "</span>",
+        "name": "color-red"
+    },
+    {
+        "signChrStart": "%g",
+        "signChrEnd": "g%",
+        "tagStart": "<span class=\"grey\">",
+        "tagEnd": "</span>",
+        "name": "color-grey"
+    },
+    {
+        "signChrStart": "%y",
+        "signChrEnd": "y%",
+        "tagStart": "<span class=\"yellow\">",
+        "tagEnd": "</span>",
+        "name": "color-grey"
+    },
+    {
+        "signChrStart": "__",
+        "signChrEnd": "__",
         "tagStart": "<u>",
         "tagEnd": "</u>",
         "name": "underline"
     },
     {
-        "signChrStart": "\\*",
-        "signChrEnd": "\\*",
+        "signChrStart": "_r",
+        "signChrEnd": "r_",
+        "tagStart": "<u class=\"red\">",
+        "tagEnd": "</u>",
+        "name": "underline-red"
+    },
+    {
+        "signChrStart": "\\*\\*",
+        "signChrEnd": "\\*\\*",
         "tagStart": "<i>",
         "tagEnd": "</i>",
         "name": "italic"

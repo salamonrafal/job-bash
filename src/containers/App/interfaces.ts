@@ -9,4 +9,6 @@ export interface IAppContainerState {
     domain: string;
     bashPrefix: string;
     inputMode: boolean;
+    inputValue: string;
+    inputCmdServiceName: string;
 }

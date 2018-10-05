@@ -9,10 +9,10 @@ export default class TransformText
     public transformToFormattedText (content: string): string
     {
         for (let i = 0; i < this.tableFormatting.length; i++)
-        {2
+        {
             const formatingData = this.tableFormatting[i];
-            let re = new RegExp("(" + formatingData.signChrStart + '([a-zA-Z0-9 \"\.\:\-]+)'  + formatingData.signChrEnd +  ")", "g");
-            content = content.replace(re, this.getFormatTag('$2', formatingData.tagStart, formatingData.tagEnd));
+            let re = new RegExp("(" + formatingData.signChrStart + '([a-zA-Z0-9 !\(\)\\[\\]\"\.\:\-\\\\`\,\<\>\+\\|\?/\\$%\\^&\']+)'  + formatingData.signChrEnd +  ")", "g");
+            content = content.replace(re, formatingData.tagStart + "$2" + formatingData.tagEnd);
         }
         
         return content;
@@ -27,10 +27,5 @@ export default class TransformText
         }
 
         return content
-    }
-
-    private getFormatTag (text: string, tagStart: string, tagEnd: string): string
-    {
-        return tagStart + text + tagEnd;
     }
 }

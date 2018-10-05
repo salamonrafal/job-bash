@@ -10,6 +10,7 @@ export default abstract class CmdAbstract
         this.printService = printService;
     }
 
-    abstract run(params: any, commandInfo: ICommandData);
+    public abstract run(params: any, commandInfo: ICommandData): void;
+    public abstract input(value: string): void;
 }
 
