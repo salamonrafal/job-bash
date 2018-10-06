@@ -11,6 +11,18 @@ export default abstract class CmdAbstract
     }
 
     public abstract run(params: any, commandInfo: ICommandData): void;
-    public abstract input(value: string): void;
+    public abstract input(value: string, commandInfo: ICommandData): void;
+
+    protected startInputMode(commandName: string): void
+    {
+        this.printService.enableInputMode();
+        this.printService.setInputService(commandName);
+    }
+
+    protected endInputMode(): void
+    {
+        this.printService.disableInputMode();
+        this.printService.setInputService('');
+    }
 }
 

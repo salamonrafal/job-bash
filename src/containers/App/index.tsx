@@ -16,11 +16,23 @@ import CommandFactory from 'services/CommandFactory';
 // Data
 const terminalStaticWelcome = require('data/statics/welcome.json');
 
+// Helpers
+import { 
+    IMappingKey, 
+    createKeyMapping, 
+    getActionNameForKey,
+    ACT_NAME_EXEC_COMMAND,
+    ACT_NAME_PREVET_DEFAULT,
+    ACT_NAME_REMOVE_CHAR,
+    ACT_NAME_DEFAULT
+} from 'helpers';
+
 export default class App extends React.Component<IAppContainerProps, IAppContainerState>
 {
 
     private printService: Printer;
     private commandFactory: CommandFactory;
+    private mappingKeys: IMappingKey[];
 
     constructor (props : IAppContainerProps) 
     {
@@ -37,11 +49,14 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
             inputCmdServiceName: ""
         }
 
+        this.mappingKeys = createKeyMapping();
+
         this.eventUpdateLine = this.eventUpdateLine.bind(this);
         this.eventAddLineToDisplay = this.eventAddLineToDisplay.bind(this);
         this.eventInputModeChange = this.eventInputModeChange.bind(this);
         this.eventSetInputService = this.eventSetInputService.bind(this);
         this.eventSetInputValue = this.eventSetInputValue.bind(this);
+        this.eventExecCommand = this.eventExecCommand.bind(this);
         this.handleKeyPressTerminal = this.handleKeyPressTerminal.bind(this);
     }
 
@@ -84,71 +99,45 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
     public handleKeyPressTerminal (event): void 
     {
         const { line } = this.state;
-
-        switch (event.key)
+        const actionName = getActionNameForKey(event.key, this.mappingKeys);
+        
+        switch (actionName)
         {
-            case 'Enter':
-                event.preventDefault();
-                if (!this.state.inputMode)
-                {
-                    this.printService.printSelectedLine(this.state.line);
-                }
-                this.commandFactory.exec(this.state.line, this.state.inputMode, this.state.inputCmdServiceName);
-                this.setState({
-                    line: ""
-                });
-                break;
-            case 'Shift':
-            case 'Control':
-            case 'PageUp':
-            case 'PageDown':
-            case 'Escape':
-            case 'Meta':
-            case 'Tab':
-            case 'Delete':
-            case 'Insert':
-            case 'Home':
-            case 'End':
-            case 'ArrowUp':
-            case 'ArrowDown':
-            case 'ArrowLeft':
-            case 'ArrowRight':
-            case 'F1':
-            case 'F2':
-            case 'F3':
-            case 'F4':
-            case 'F5':
-            case 'F6':
-            case 'F7':
-            case 'F8':
-            case 'F9':
-            case 'F10':
-            case 'F11':
-            case 'F12':
-            case 'ScrollLock': 
-            case 'CapsLock':
-            case 'ContextMenu':
-            case 'Alt':
-            case 'AltGraph':
-            case 'Dead':
-            case 'Pause':
-            case '\\':
-            case '?':
-                event.preventDefault();
-                // Implement
-                break;
-
-            case 'Backspace':
-                this.eventUpdateLine(line.substring(0, line.length - 1));
-                break;
-
-            default:
-                this.eventUpdateLine(line+event.key);
+            case ACT_NAME_EXEC_COMMAND:
+                // event.preventDefault();
+                this.eventExecCommand();
             break;
+
+            case ACT_NAME_PREVET_DEFAULT:
+                event.preventDefault();
+            break;
+
+            case ACT_NAME_REMOVE_CHAR:
+                event.preventDefault();
+                this.eventUpdateLine(line.substring(0, line.length - 1));
+            break;
+
+            case ACT_NAME_DEFAULT:
+                event.preventDefault();
+                this.eventUpdateLine(line+event.key);
+            default:
+
         }
     }
 
     // Events
+
+    public eventExecCommand (): void
+    {
+        if (!this.state.inputMode)
+        {
+            this.printService.printSelectedLine(this.state.line);
+        }
+        this.commandFactory.exec(this.state.line, this.state.inputMode, this.state.inputCmdServiceName);
+        this.setState({
+            line: ""
+        });
+    }
 
     public eventUpdateLine (content: string): void
     {

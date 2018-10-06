@@ -11,7 +11,9 @@ export default class TransformText
         for (let i = 0; i < this.tableFormatting.length; i++)
         {
             const formatingData = this.tableFormatting[i];
-            let re = new RegExp("(" + formatingData.signChrStart + '([a-zA-Z0-9 !\(\)\\[\\]\"\.\:\-\\\\`\,\<\>\+\\|\?/\\$%\\^&\']+)'  + formatingData.signChrEnd +  ")", "g");
+            const signs = ' !\(\)\\[\\]\"\.\:\\-\\\\`\,\<\>\+\\|\?/\\$%\\^&\'';
+            const nationalLetters = 'ąśżźćńłóęĄŚŻŹĆŃŁÓĘ';
+            let re = new RegExp("(" + formatingData.signChrStart + '([a-zA-Z0-9' + signs + nationalLetters + ']+)'  + formatingData.signChrEnd +  ")", "g");
             content = content.replace(re, formatingData.tagStart + "$2" + formatingData.tagEnd);
         }
         
