@@ -24,7 +24,8 @@ import {
     ACT_NAME_EXEC_COMMAND,
     ACT_NAME_PREVET_DEFAULT,
     ACT_NAME_REMOVE_CHAR,
-    ACT_NAME_DEFAULT
+    ACT_NAME_DEFAULT,
+    ACT_NAME_PRINT_HELP
 } from 'helpers';
 
 export default class App extends React.Component<IAppContainerProps, IAppContainerState>
@@ -100,11 +101,17 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
     {
         const { line } = this.state;
         const actionName = getActionNameForKey(event.key, this.mappingKeys);
-        
+
         switch (actionName)
         {
             case ACT_NAME_EXEC_COMMAND:
-                // event.preventDefault();
+                event.preventDefault();
+                this.eventExecCommand();
+            break;
+
+            case ACT_NAME_PRINT_HELP:
+                event.preventDefault();
+                this.eventUpdateLine('help');
                 this.eventExecCommand();
             break;
 

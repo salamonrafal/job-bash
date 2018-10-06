@@ -1,10 +1,12 @@
 export const ACT_NAME_EXEC_COMMAND = 'execCommand';
 export const ACT_NAME_PREVET_DEFAULT = 'preventDefaultAction';
 export const ACT_NAME_REMOVE_CHAR = 'backRemoveChar';
+export const ACT_NAME_PRINT_HELP = 'printHelp';
 export const ACT_NAME_DEFAULT = 'default';
 
 export const handledKeys = {
     'execCommand': ['Enter'],
+    'printHelp': ['F1'],
     'preventDefaultAction': [
         'Shift',
         'Control',
@@ -21,7 +23,6 @@ export const handledKeys = {
         'ArrowDown',
         'ArrowLeft',
         'ArrowRight',
-        'F1',
         'F2',
         'F3',
         'F4',
