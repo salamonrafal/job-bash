@@ -2,7 +2,7 @@
     {
         "name": "help",
         "hint": "Show information about all available commands",
-        "example": "help [--command <command_name>]",
+        "example": "help --command command_name",
         "args": [
             {
                 "short": "c",
@@ -20,7 +20,7 @@
     {
         "name": "jobs",
         "hint": "Search jobs in database and print them",
-        "example": "jobs [--category <category_id>] [--keyword <keyword>] [--city <city_id>] [--max <max_number>]",
+        "example": "jobs --category category_id --keyword keyword --city city_id --max max_number",
         "args": [
             {
                 "short": "c",
@@ -64,7 +64,7 @@
     {
         "name": "job",
         "hint": "Display information about job",
-        "example": "job --id <job_id>",
+        "example": "job --id job_id",
         "args": [
             {
                 "short": "i",

@@ -14,6 +14,45 @@ export default class Commands
         this.populateCache();
     }
 
+    // Static
+
+    static getListCommands(): string[]
+    {
+        const commandsData = require('data/commands.json');
+        let listCommands: string[] = [];
+
+        for(let i = 0; i < commandsData.length; i++)
+        {
+            listCommands.push(commandsData[i].name);
+        }
+
+        return listCommands;
+    }
+
+    static getInfoCommand(name: string): ICommandData
+    {
+        const commandsData = require('data/commands.json');
+
+        for(let i = 0; i < commandsData.length; i++)
+        {
+            if (commandsData[i].name === name)
+            {
+                return commandsData[i];
+            }
+        }
+
+        return {
+            name: '',
+            hint: '',
+            example: '',
+            args: [],
+            aliases: [],
+            serviceName: ''
+        };
+    }
+
+    // Public
+
     public isCommandExists(command: string): boolean
     {
         return this.isExists(command);
@@ -24,6 +63,8 @@ export default class Commands
         const normalizedName = this.normalizeName(command);
         return this.searchCommandData(normalizedName);
     }
+
+    // Private
 
     private populateCache(): void
     {

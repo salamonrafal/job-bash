@@ -31,18 +31,18 @@ export default class CommandInterpreter
 
         if (this.parsedCommand.commandName.length > 0) 
         {
-            contentDisplay = contentDisplay.replace(new RegExp('^' + this.escapeString(this.parsedCommand.commandName)), "#y" + this.parsedCommand.commandName + "y#");
+            contentDisplay = contentDisplay.replace(new RegExp('^' + this.escapeString(this.parsedCommand.commandName)), "#y" + this.escapeSpecialChars(this.parsedCommand.commandName) + "y#");
         }
 
         for (let i = 0; i < this.parsedCommand.params.length; i++)
         {
             let search = "(?<!\#g)" + this.escapeString(this.parsedCommand.params[i].name) + "";
-            let replace = "#g" + this.parsedCommand.params[i].name + "g#"
+            let replace = "#g" + this.escapeSpecialChars(this.parsedCommand.params[i].name) + "g#"
 
             if (this.parsedCommand.params[i].value.length > 0)
             {
                 search += " (" + this.parsedCommand.params[i].value + ")";
-                replace += " __" + this.parsedCommand.params[i].value + "__";
+                replace += " __" + this.escapeSpecialChars(this.parsedCommand.params[i].value) + "__";
             }
 
             contentDisplay = contentDisplay.replace(new RegExp(search), replace);
@@ -61,6 +61,16 @@ export default class CommandInterpreter
             content = content.replace(new RegExp('\\' + signs[i], 'gm'), '\\' + signs[i]);
         }
 
+        return content;
+    }
+
+    private escapeSpecialChars (content: string): string
+    {
+        content = content.replace(new RegExp('\\_', 'gm'), '&lowbar;');
+        content = content.replace(new RegExp('#', 'gm'), '&num;');
+        content = content.replace(new RegExp('\\*', 'gm'), '&ast;');
+        content = content.replace(new RegExp('<', 'gm'), '&lt;');
+        content = content.replace(new RegExp('>', 'gm'), '&gt;');
         return content;
     }
 

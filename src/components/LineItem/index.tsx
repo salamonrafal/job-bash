@@ -23,7 +23,7 @@ export default class LineItem extends React.Component <IProps>
                 cursorText = (<CursorStyled></CursorStyled>);
             } 
 
-            if (/^ *\*{1,1} /.test(content)) {
+            if (/^ *\*{1,1} /.test(content) || /^ {5,}/.test(content)) {
                 return (
                     <LineItemStyled><pre dangerouslySetInnerHTML={{__html: contentChecked}}></pre>{cursorText}</LineItemStyled> 
                 );
