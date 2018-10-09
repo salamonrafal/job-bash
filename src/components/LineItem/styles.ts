@@ -9,10 +9,10 @@ const LineItemStyled = styled.div `
 const CursorStyled = styled.span `
     display: inline-block;
     background-color: #e0dfdf;
-    width: 8px;
-    height: 16px;
-    margin-left: 5px;
-    margin-top: 3px
+    width: 7px;
+    height: 14px;
+    margin-left: 2px;
+    margin-top: 0px
 `;
 
 export {

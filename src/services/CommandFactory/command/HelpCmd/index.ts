@@ -10,32 +10,16 @@ export class HelpCmd extends CmdAbstract
     public run(params: any[], commandInfo: ICommandData)
     {
         console.log(params);
-        if (params.length === 0)
+        const paramCommandValue = this.getParamValue('--command', '--c', params);
+
+        if (paramCommandValue === undefined)
         {
-            let transformText: TransformText = new TransformText();
-            
-
-            this.printService.printLineNoInfo('');
-            this.printService.printLineNoInfo('');
-            this.printService.printLineNoInfo('##Command name##: #g' + commandInfo.name + 'g#');
-            this.printService.printLineNoInfo('##Command description##: ' + commandInfo.hint);
-            this.printService.printLineNoInfo('##Command aliases##: ' + this.createContentAliases(commandInfo.aliases));
-
-            let commandInterpreter: CommandInterpreter = new CommandInterpreter(commandInfo.example);
-
-            this.printService.printLineNoInfo('##Examples##: ' + transformText.transformToFormattedText(commandInterpreter.outputFormatCommand()));
-            this.printService.printLineNoInfo('');
-            this.printService.printLineNoInfo('##Parameters:##');
-
-            for (let i = 0; i < commandInfo.args.length; i++)
-            {
-                this.printContentArgs(commandInfo.args[i]);
-            }
-
-            this.printService.printLineNoInfo('');
+            this.pribtContentCommand(commandInfo, true);
+        } else {
+            commandInfo = Commands.getInfoCommand(paramCommandValue);
+            this.pribtContentCommand(commandInfo);
         }
         
-
         this.endInputMode();
     }
 
@@ -44,7 +28,7 @@ export class HelpCmd extends CmdAbstract
         this.endInputMode();
     }
 
-    private createContentAliases (aliases: string[]): string
+    private createContentList (aliases: string[]): string
     {
         let content = '';
 
@@ -63,6 +47,39 @@ export class HelpCmd extends CmdAbstract
 
     private printContentArgs (argsInfo: ICommandArgs): void
     {
-        this.printService.printLineNoInfo('     #g' + argsInfo.long + 'g#, #g' + argsInfo.short + 'g# &minus; ' + argsInfo.hint + (argsInfo.required ? '#rrequiredr#': ''));
+        this.printService.printLineNoInfo('     #g' + argsInfo.long + 'g#, #g' + argsInfo.short + 'g# &minus; ' + argsInfo.hint + (argsInfo.required ? ' (#rrequiredr#)': ''));
+    }
+
+    private pribtContentCommand(commandInfo: ICommandData, showListCommands?: boolean): void 
+    {
+        let transformText: TransformText = new TransformText();
+        let commandInterpreter: CommandInterpreter = new CommandInterpreter(commandInfo.example);
+
+        this.printService.printLineNoInfo('');
+
+        
+
+        this.printService.printLineNoInfo('##Command name##: #y' + commandInfo.name + 'y#');
+        this.printService.printLineNoInfo('##Command description##: ' + commandInfo.hint);
+        this.printService.printLineNoInfo('##Command aliases##: ' + this.createContentList(commandInfo.aliases));
+
+        this.printService.printLineNoInfo('##Examples##: ' + transformText.transformToFormattedText(commandInterpreter.outputFormatCommand()));
+
+        this.printService.printLineNoInfo('');
+
+        this.printService.printLineNoInfo('##Parameters:##');
+
+        for (let i = 0; i < commandInfo.args.length; i++)
+        {
+            this.printContentArgs(commandInfo.args[i]);
+        }
+
+        if (showListCommands !== undefined && showListCommands)
+        {
+            this.printService.printLineNoInfo('');
+            this.printService.printLineNoInfo('##List of available commands##: ' + this.createContentList(Commands.getListCommands()));
+        }
+
+        this.printService.printLineNoInfo('');
     }
 }
