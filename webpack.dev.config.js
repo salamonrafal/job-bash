@@ -1,6 +1,7 @@
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common.js');
 const path = require('path');
+const webpack = require('webpack');
 
 
 module.exports = merge(commonConfig, {
@@ -16,5 +17,10 @@ module.exports = merge(commonConfig, {
       port: 8080,
       host: '127.0.0.1',
       open: true
-   }
+   },
+   plugins: [
+        new webpack.DefinePlugin({
+            '__ENV__': JSON.stringify('development')
+        })
+    ]
 });

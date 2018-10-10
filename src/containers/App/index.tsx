@@ -52,6 +52,8 @@ export default class App extends React.Component<IAppContainerProps, IAppContain
 
         this.mappingKeys = createKeyMapping();
 
+        console.log(__ENV__);
+
         this.eventUpdateLine = this.eventUpdateLine.bind(this);
         this.eventAddLineToDisplay = this.eventAddLineToDisplay.bind(this);
         this.eventInputModeChange = this.eventInputModeChange.bind(this);
